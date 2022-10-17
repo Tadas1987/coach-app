@@ -1,4 +1,4 @@
-# coach-app## 
+# coach-app 
 👶 Getting Started (development)
 
 Required Node and Npm versions:
