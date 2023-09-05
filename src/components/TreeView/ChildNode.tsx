@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Coach, TreeNodeType } from '../../types';
-import { TreeNode } from './TreeNode';
+import { TreeNode } from './tree-node/TreeNode';
 
 interface Props {
   treeNode: TreeNodeType[];

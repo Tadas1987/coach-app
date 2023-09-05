@@ -2,6 +2,9 @@ import { FC } from 'react';
 import { TreeNodeType } from 'src/types';
 import { MdDelete, MdArrowUpward, MdArrowDownward } from 'react-icons/md';
 
+import './styles.css';
+import { DeleteNode } from './DeleteNode';
+
 interface Props {
   treeNode: TreeNodeType;
   nodes: TreeNodeType[];
@@ -16,9 +19,10 @@ export const NodeActions: FC<Props> = (props) => {
 
   return (
     <div className="node-actions">
-      <MdDelete
-        onClick={() => deleteTreeItem(treeNode, nodes)}
-        className="delete-icon"
+      <DeleteNode
+        treeNode={treeNode}
+        nodes={nodes}
+        deleteNode={deleteTreeItem}
       />
       {nodes.length > 1 && (
         <>
