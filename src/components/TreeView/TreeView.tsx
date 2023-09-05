@@ -1,8 +1,9 @@
 import { FC, useMemo, useState } from 'react';
 import { deleteCoach, updateCoach } from 'src/api/http';
 import { useCoaches } from 'src/pages/CoachContext';
-import { Coach, NodeMap, TreeNodeType } from 'src/types';
-import { TreeNode } from './TreeNode';
+import { Coach, TreeNodeType } from 'src/types';
+import { TreeNode } from './tree-node/TreeNode';
+import { buildTreeList } from 'src/utils/BuildTreeView';
 
 interface Props {
   coachList: Coach[];
@@ -20,52 +21,21 @@ export const TreeView: FC<Props> = (props) => {
   }, [coachList]);
 
   return (
-    <div>
-      <ul>
-        {memoizedNodes?.map((node, index, array) => {
-          return (
-            <TreeNode
-              key={index}
-              treeNode={node}
-              index={index}
-              nodes={array}
-              deleteTreeItem={deleteTreeItem}
-              moveNode={moveNode}
-            />
-          );
-        })}
-      </ul>
-    </div>
-  );
-
-  function buildTreeList(data: Coach[]) {
-    const dataCopy: Coach[] = JSON.parse(JSON.stringify(data));
-
-    const map: NodeMap = {};
-    const roots: TreeNodeType[] = [];
-    let node: Coach;
-    let i: number;
-
-    for (i = 0; i < dataCopy.length; i++) {
-      map[dataCopy[i].id] = i;
-      dataCopy[i].children = [];
-    }
-
-    for (i = 0; i < dataCopy.length; i++) {
-      node = dataCopy[i];
-
-      if (node.parentCoach !== null) {
-        dataCopy[map[node.parentCoach]].children?.push(node);
-        dataCopy[map[node.parentCoach]].children?.sort(
-          (a, b) => a.position - b.position
+    <ul>
+      {memoizedNodes?.map((node, index, array) => {
+        return (
+          <TreeNode
+            key={node.id}
+            treeNode={node}
+            index={index}
+            nodes={array}
+            deleteTreeItem={deleteTreeItem}
+            moveNode={moveNode}
+          />
         );
-      } else {
-        roots.push(node as TreeNodeType);
-      }
-    }
-
-    return roots;
-  }
+      })}
+    </ul>
+  );
 
   function deleteTreeItem(treeItem: TreeNodeType, nodes: TreeNodeType[]) {
     if (isProcessing) return;

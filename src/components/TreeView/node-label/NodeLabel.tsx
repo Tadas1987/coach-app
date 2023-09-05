@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Coach } from 'src/types';
+import './styles.css';
 
 interface Props {
   fullName: Coach['fullName'];
@@ -13,12 +14,10 @@ export const NodeLabel: FC<Props> = (props) => {
   return (
     <div className="node-label">
       <p>
-        <span>Full Name: </span>
-        {fullName}
+        <strong>Full Name:</strong> {fullName}
       </p>
       <p>
-        <span>Email: </span>
-        {email}
+        <strong>Email: </strong> {email}
       </p>
       {parentCoachFullName && (
         <p>
