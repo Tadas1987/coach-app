@@ -1,10 +1,11 @@
 import { FC, useState } from 'react';
-import { Coach, TreeNodeType } from '../../../types';
+import { TreeNodeType } from '../../../types';
 import { NodeActions } from '../node-actions/NodeActions';
 import { NodeLabel } from '../node-label/NodeLabel';
-import { MdExpandMore } from 'react-icons/md';
+
 
 import './styles.css';
+import { ExpandButton } from '../node-actions/ExpandButton';
 
 interface Props {
   treeNode: TreeNodeType;
@@ -12,32 +13,30 @@ interface Props {
   nodes: TreeNodeType[];
   deleteTreeItem: (node: TreeNodeType, nodes: TreeNodeType[]) => void;
   moveNode: (node: TreeNodeType, destination: number) => void;
-  parentCoachFullName?: Coach['fullName'];
 }
 
 export const TreeNode: FC<Props> = (props) => {
   const {
     treeNode,
-    parentCoachFullName,
     index,
     nodes,
     deleteTreeItem,
     moveNode,
   } = props;
-  const [expandChildren, setExpandChildren] = useState(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const itemClass = treeNode.children.length > 0 ? 'tree-node tree-node-expandable' : 'tree-node';
 
   return (
-    <li>
-      <div className="tree-node">
-        {treeNode.children.length > 0 && (
-          <button onClick={() => setExpandChildren(!expandChildren)}>
-            <MdExpandMore />
-          </button>
-        )}
+    <li aria-expanded={isExpanded} role="treeitem">
+      <div className={itemClass} onClick={() => setIsExpanded(!isExpanded)}>
+        <div className="expand-button-container">
+          {treeNode.children.length > 0 && (
+            <ExpandButton handleExpand={setIsExpanded} isExpanded={isExpanded}/>
+          )}
+        </div>
         <NodeLabel
           email={treeNode.email}
           fullName={treeNode.fullName}
-          parentCoachFullName={parentCoachFullName}
         />
         <NodeActions
           treeNode={treeNode}
@@ -47,14 +46,13 @@ export const TreeNode: FC<Props> = (props) => {
           moveNode={moveNode}
         />
       </div>
-      {expandChildren &&
+      {isExpanded &&
         treeNode.children &&
         treeNode.children.map((node, index, array) => {
           return (
             <ul key={node.id}>
               <TreeNode
                 treeNode={node}
-                parentCoachFullName={treeNode.fullName}
                 deleteTreeItem={deleteTreeItem}
                 index={index}
                 nodes={array}
