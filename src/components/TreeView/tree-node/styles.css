@@ -1,5 +1,18 @@
 .tree-node {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  max-width: fit-content;
+}
+
+.tree-node-expandable {
+  cursor: pointer;
+}
+
+.tree-node-expandable:hover {
+  background-color: rgb(206, 205, 205);
+} 
+
+.expand-button-container {
+  width: 35px;
 }

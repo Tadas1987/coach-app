@@ -1,9 +1,9 @@
 .node-label {
   align-items: flex-start;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
-  padding: 4px 16px;
+  padding: 4px 0;
 }
 
 .node-label p {

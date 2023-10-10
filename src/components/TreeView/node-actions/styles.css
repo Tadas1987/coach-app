@@ -13,3 +13,21 @@
   font-size: 24px;
   cursor: pointer;
 }
+
+.expand-button {
+  background-color: transparent;
+  cursor: pointer;
+  padding: 6px;
+  font-size: 18px;
+  transform: rotate(0);
+}
+
+.expand-button > svg {
+  transform: rotate(0);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;;
+}
+
+.expand-button-expanded > svg {
+  transform: rotate(90deg);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}

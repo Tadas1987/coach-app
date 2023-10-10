@@ -5,11 +5,10 @@ import './styles.css';
 interface Props {
   fullName: Coach['fullName'];
   email: Coach['email'];
-  parentCoachFullName?: Coach['fullName'];
 }
 
 export const NodeLabel: FC<Props> = (props) => {
-  const { fullName, email, parentCoachFullName } = props;
+  const { fullName, email } = props;
 
   return (
     <div className="node-label">
@@ -19,12 +18,6 @@ export const NodeLabel: FC<Props> = (props) => {
       <p>
         <strong>Email: </strong> {email}
       </p>
-      {parentCoachFullName && (
-        <p>
-          <span>Parent Coach: </span>
-          {parentCoachFullName}
-        </p>
-      )}
     </div>
   );
 };
